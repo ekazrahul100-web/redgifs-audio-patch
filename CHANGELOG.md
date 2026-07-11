@@ -1,3 +1,9 @@
+## [1.1.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.1...v1.1.2) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* remove StrictMode stub from dex to prevent possible SecurityExceptions or class loading issues ([3d2e3e4](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/3d2e3e451abdc0dd9f7350e6054f7c223860894e))
+
 ## [1.1.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.0...v1.1.1) (2026-07-11)
 
 ### 🐛 Bug Fixes
