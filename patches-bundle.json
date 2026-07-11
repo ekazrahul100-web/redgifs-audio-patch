@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-11T19:27:36",
-  "description": "## [1.2.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.1...v1.2.2) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* hook VideoMedia constructor instead of RedditVideo to intercept RedGifs embeds ([41688de](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/41688de5c2ce23cc7d2f549e610f0969462f8b82))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.2/patches-1.2.2.mpp",
+  "created_at": "2026-07-11T20:02:53",
+  "description": "## [1.2.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.2...v1.2.3) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* use temp register to avoid destroying p2, add debug Toast logging ([6e44855](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/6e44855fcf637fe561c89864e4c4e66b8b9bb2b2))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.3/patches-1.2.3.mpp",
   "signature_download_url": "",
-  "version": "1.2.2"
+  "version": "1.2.3"
 }

@@ -1,3 +1,9 @@
+## [1.2.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.2...v1.2.3) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* use temp register to avoid destroying p2, add debug Toast logging ([6e44855](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/6e44855fcf637fe561c89864e4c4e66b8b9bb2b2))
+
 ## [1.2.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.1...v1.2.2) (2026-07-11)
 
 ### 🐛 Bug Fixes
