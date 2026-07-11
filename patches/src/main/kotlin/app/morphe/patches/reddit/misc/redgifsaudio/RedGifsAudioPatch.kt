@@ -27,12 +27,16 @@ val redgifsAudioPatch = bytecodePatch(
             0,
             """
                 invoke-static {p1, p2}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->getRedGifsHdUrl(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-                move-result-object p2
+                move-result-object v0
                 
-                if-eqz p2, :cond_skip_vm
+                if-eqz v0, :cond_skip_vm
                 
-                invoke-static {p2}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->createVideoHtml(Ljava/lang/String;)Ljava/lang/String;
-                move-result-object p1
+                move-object p2, v0
+                
+                invoke-static {v0}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->createVideoHtml(Ljava/lang/String;)Ljava/lang/String;
+                move-result-object v0
+                if-eqz v0, :cond_skip_vm
+                move-object p1, v0
                 
                 :cond_skip_vm
             """.trimIndent()
