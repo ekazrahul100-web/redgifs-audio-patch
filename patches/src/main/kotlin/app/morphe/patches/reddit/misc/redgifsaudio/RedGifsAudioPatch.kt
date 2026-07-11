@@ -7,13 +7,7 @@ import app.morphe.patcher.patch.bytecodePatch
 @Suppress("unused")
 val redgifsAudioPatch = bytecodePatch(
     name = "RedGifs Audio Fix",
-    description = "Enables audio playback for RedGifs videos embedded in Reddit posts.",
-    fingerprints = listOf(
-        RedditVideoConstructorFingerprint,
-        ExtraTagsIsGifPostFingerprint,
-        CorexDataMediaGetHasAudioFingerprint,
-        CorePlatformMediaGetHasAudioFingerprint
-    )
+    description = "Enables audio playback for RedGifs videos embedded in Reddit posts."
 ) {
     extendWith("redgifs_extension.dex")
     compatibleWith("com.reddit.frontpage")
@@ -39,28 +33,22 @@ val redgifsAudioPatch = bytecodePatch(
         )
 
         // 2. Force ExtraTags.isGifPost() to return false globally
-        ExtraTagsIsGifPostFingerprint.result?.let {
-            it.mutableMethod.addInstructions(0, """
-                const/4 p0, 0x0
-                return p0
-            """.trimIndent())
-        }
+        ExtraTagsIsGifPostFingerprint.method.addInstructions(0, """
+            const/4 p0, 0x0
+            return p0
+        """.trimIndent())
 
         // 3. Force corexdata Media.getHasAudio() to return true globally
-        CorexDataMediaGetHasAudioFingerprint.result?.let {
-            it.mutableMethod.addInstructions(0, """
-                const/4 p0, 0x1
-                return p0
-            """.trimIndent())
-        }
+        CorexDataMediaGetHasAudioFingerprint.method.addInstructions(0, """
+            const/4 p0, 0x1
+            return p0
+        """.trimIndent())
 
         // 4. Force coreplatform Media.getHasAudio() to return true globally
-        CorePlatformMediaGetHasAudioFingerprint.result?.let {
-            it.mutableMethod.addInstructions(0, """
-                const/4 p0, 0x1
-                return p0
-            """.trimIndent())
-        }
+        CorePlatformMediaGetHasAudioFingerprint.method.addInstructions(0, """
+            const/4 p0, 0x1
+            return p0
+        """.trimIndent())
     }
 }
 
