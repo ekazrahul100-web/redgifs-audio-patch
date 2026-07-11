@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.0...v1.2.1) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* aggressively force global UI checks to unmute videos ([4ad98e1](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/4ad98e12ca09f7d234448fe3f42f758cd88824d3))
+* resolve Kotlin compile error in patch DSL ([c83999e](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/c83999e13c2e02f46d041474c5a4ac49f21e7ad4))
+
 ## [1.2.0](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.3...v1.2.0) (2026-07-11)
 
 ### ✨ New Features
