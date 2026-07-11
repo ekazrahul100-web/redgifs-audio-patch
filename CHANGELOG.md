@@ -1,3 +1,13 @@
+## [1.1.0](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.4...v1.1.0) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* remove java sources to prevent gradle compile errors since we use precompiled dex ([8498be8](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/8498be8b494f3b11c370cda97ea2df0a53cf9ff4))
+
+### ✨ New Features
+
+* implement correct RedGifs Auth token fetch and proper class injection via extendWith ([c533356](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/c533356b99dae0810556b431de5e587beb960966))
+
 ## [1.0.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.3...v1.0.4) (2026-07-11)
 
 ### 🐛 Bug Fixes
