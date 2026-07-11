@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.3...v1.0.4) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* bundle RedGifsHelper as smali in resources to fix NoClassDefFoundError ([7a96154](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/7a961546cf5811ce73be1460b3067df8647c8383))
+
 ## [1.0.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.2...v1.0.3) (2026-07-11)
 
 ### 🐛 Bug Fixes
