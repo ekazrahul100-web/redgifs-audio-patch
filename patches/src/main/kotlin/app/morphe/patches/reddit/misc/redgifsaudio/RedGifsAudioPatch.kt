@@ -4,20 +4,22 @@ import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 
-
 @Suppress("unused")
 val redgifsAudioPatch = bytecodePatch(
     name = "RedGifs Audio Fix",
-    description = "Enables audio playback for RedGifs videos embedded in Reddit posts."
+    description = "Enables audio playback for RedGifs videos embedded in Reddit posts.",
+    fingerprints = listOf(
+        RedditVideoConstructorFingerprint,
+        ExtraTagsIsGifPostFingerprint,
+        CorexDataMediaGetHasAudioFingerprint,
+        CorePlatformMediaGetHasAudioFingerprint
+    )
 ) {
     extendWith("redgifs_extension.dex")
     compatibleWith("com.reddit.frontpage")
 
     execute {
         val method = RedditVideoConstructorFingerprint.method
-        
-        // Inject a call to our static fetchAudioUrl function right at the start of the constructor.
-        // p5 is fallbackUrl, p1 is packagedMp4Url, p3 is dashUrl, p8 is hlsUrl, p9 is isGif.
         method.addInstructions(
             0,
             """
@@ -35,6 +37,30 @@ val redgifsAudioPatch = bytecodePatch(
                 :cond_skip_redgifs
             """.trimIndent()
         )
+
+        // 2. Force ExtraTags.isGifPost() to return false globally
+        ExtraTagsIsGifPostFingerprint.result?.let {
+            it.mutableMethod.addInstructions(0, """
+                const/4 p0, 0x0
+                return p0
+            """.trimIndent())
+        }
+
+        // 3. Force corexdata Media.getHasAudio() to return true globally
+        CorexDataMediaGetHasAudioFingerprint.result?.let {
+            it.mutableMethod.addInstructions(0, """
+                const/4 p0, 0x1
+                return p0
+            """.trimIndent())
+        }
+
+        // 4. Force coreplatform Media.getHasAudio() to return true globally
+        CorePlatformMediaGetHasAudioFingerprint.result?.let {
+            it.mutableMethod.addInstructions(0, """
+                const/4 p0, 0x1
+                return p0
+            """.trimIndent())
+        }
     }
 }
 
@@ -58,3 +84,23 @@ object RedditVideoConstructorFingerprint : Fingerprint(
     )
 )
 
+object ExtraTagsIsGifPostFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/ExtraTags;",
+    returnType = "Z",
+    name = "isGifPost",
+    parameters = emptyList()
+)
+
+object CorexDataMediaGetHasAudioFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/corexdata/common/Media;",
+    returnType = "Z",
+    name = "getHasAudio",
+    parameters = emptyList()
+)
+
+object CorePlatformMediaGetHasAudioFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/coreplatform/common/Media;",
+    returnType = "Z",
+    name = "getHasAudio",
+    parameters = emptyList()
+)
