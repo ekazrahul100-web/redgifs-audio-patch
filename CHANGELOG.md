@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.0...v1.1.1) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* call toLowerCase() on redgifs ID before fetching from API ([d65d93d](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/d65d93d8f851e4820d2245371c7dc6dcc7f864bf))
+
 ## [1.1.0](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.4...v1.1.0) (2026-07-11)
 
 ### 🐛 Bug Fixes

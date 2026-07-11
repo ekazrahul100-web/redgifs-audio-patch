@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-11T16:33:28",
-  "description": "## [1.1.0](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.4...v1.1.0) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* remove java sources to prevent gradle compile errors since we use precompiled dex ([8498be8](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/8498be8b494f3b11c370cda97ea2df0a53cf9ff4))\n\n### ✨ New Features\n\n* implement correct RedGifs Auth token fetch and proper class injection via extendWith ([c533356](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/c533356b99dae0810556b431de5e587beb960966))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.1.0/patches-1.1.0.mpp",
+  "created_at": "2026-07-11T16:59:20",
+  "description": "## [1.1.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.0...v1.1.1) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* call toLowerCase() on redgifs ID before fetching from API ([d65d93d](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/d65d93d8f851e4820d2245371c7dc6dcc7f864bf))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.1.1/patches-1.1.1.mpp",
   "signature_download_url": "",
-  "version": "1.1.0"
+  "version": "1.1.1"
 }
