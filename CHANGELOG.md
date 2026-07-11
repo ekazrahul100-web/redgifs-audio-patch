@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.3...v1.2.0) (2026-07-11)
+
+### ✨ New Features
+
+* restore functional RedGifs helper with lowercase ID fix ([ea9cfda](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/ea9cfdaa2eef2998f93b3ad9502261f161a2ab5a))
+
 ## [1.1.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.2...v1.1.3) (2026-07-11)
 
 ### 🐛 Bug Fixes
