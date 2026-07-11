@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.0...v1.0.1) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* resolve compile errors from invalid ReVanced imports ([13a1950](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/13a1950ecc9192aae90133f2af730bc390417b05))
+* rewrite patch using correct Morphe DSL and precise hook point ([469f940](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/469f94083e702b66daf98eda2155cba6ce3a2395))
+
 ## 1.0.0 (2026-07-11)
 
 ### 🐛 Bug Fixes
