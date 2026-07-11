@@ -5,7 +5,6 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 import java.net.HttpURLConnection
 import java.net.URL
-import org.json.JSONObject
 
 @Suppress("unused")
 val redgifsAudioPatch = bytecodePatch(
@@ -77,10 +76,12 @@ object RedGifsHelper {
 
             if (connection.responseCode == 200) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
-                val json = JSONObject(response)
-                val hdUrl = json.getJSONObject("gif").getJSONObject("urls").getString("hd")
-                if (hdUrl.isNotEmpty()) {
-                    return hdUrl
+                val match = Regex("\"hd\"\\s*:\\s*\"([^\"]+)\"").find(response)
+                if (match != null) {
+                    val hdUrl = match.groupValues[1]
+                    if (hdUrl.isNotEmpty()) {
+                        return hdUrl
+                    }
                 }
             }
         } catch (e: Exception) {
