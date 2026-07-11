@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.2...v1.1.3) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* push diagnostic patch that forces null to verify login interference ([551bbd1](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/551bbd10f328421922e8fd3604fff845952e1c92))
+
 ## [1.1.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.1...v1.1.2) (2026-07-11)
 
 ### 🐛 Bug Fixes

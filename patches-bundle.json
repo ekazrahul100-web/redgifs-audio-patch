@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-11T17:11:39",
-  "description": "## [1.1.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.1...v1.1.2) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* remove StrictMode stub from dex to prevent possible SecurityExceptions or class loading issues ([3d2e3e4](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/3d2e3e451abdc0dd9f7350e6054f7c223860894e))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.1.2/patches-1.1.2.mpp",
+  "created_at": "2026-07-11T17:53:53",
+  "description": "## [1.1.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.1.2...v1.1.3) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* push diagnostic patch that forces null to verify login interference ([551bbd1](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/551bbd10f328421922e8fd3604fff845952e1c92))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.1.3/patches-1.1.3.mpp",
   "signature_download_url": "",
-  "version": "1.1.2"
+  "version": "1.1.3"
 }
