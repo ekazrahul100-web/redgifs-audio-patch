@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.1...v1.0.2) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* remove org.json dependency and use Regex ([6f0d2b6](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/6f0d2b60571d8b0bbfecdb06fb225970384b290f))
+* Rewrite patch to hook RedditVideo constructor and fetch RedGifs HD mp4 ([f59c15e](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/f59c15ee8c2ee0f52675dcb1d41707763d1c8f6c))
+
 ## [1.0.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.0.0...v1.0.1) (2026-07-11)
 
 ### 🐛 Bug Fixes
