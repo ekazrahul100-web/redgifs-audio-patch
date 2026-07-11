@@ -4,7 +4,6 @@ import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
 
-
 @Suppress("unused")
 val redgifsAudioPatch = bytecodePatch(
     name = "RedGifs Audio Fix",
@@ -14,52 +13,35 @@ val redgifsAudioPatch = bytecodePatch(
     compatibleWith("com.reddit.frontpage")
 
     execute {
-        // === HOOK 1: VideoMedia constructor (PRIMARY - handles RedGifs embeds) ===
-        // VideoMedia(String embedHtml, String url, MediaDimensions, VideoAttribution)
-        // p0=this, p1=embedHtml, p2=url, p3=dimensions, p4=attribution
-        //
-        // When the app creates a VideoMedia for a RedGifs embed, we intercept it:
-        // 1. Call getRedGifsHdUrl(embedHtml, url) to get the direct HD mp4 URL
-        // 2. Replace embedHtml (p1) with an HTML5 video tag
-        // 3. Replace url (p2) with the direct mp4 URL
+        // === HOOK 1: VideoMedia constructor ===
+        // Calls our helper to process p1 and p2. 
+        // Then we load the result from the helper's static fields.
+        // This requires ZERO local registers (v0, etc) and is 100% verifier-safe.
         val videoMediaMethod = VideoMediaConstructorFingerprint.method
         videoMediaMethod.addInstructions(
             0,
             """
-                invoke-static {p1, p2}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->getRedGifsHdUrl(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-                move-result-object v0
+                invoke-static {p1, p2}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->processVideoMedia(Ljava/lang/String;Ljava/lang/String;)V
                 
-                if-eqz v0, :cond_skip_vm
-                
-                move-object p2, v0
-                
-                invoke-static {v0}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->createVideoHtml(Ljava/lang/String;)Ljava/lang/String;
-                move-result-object v0
-                if-eqz v0, :cond_skip_vm
-                move-object p1, v0
-                
-                :cond_skip_vm
+                sget-object p1, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->vmEmbedHtml:Ljava/lang/String;
+                sget-object p2, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->vmUrl:Ljava/lang/String;
             """.trimIndent()
         )
 
-        // === HOOK 2: RedditVideo constructor (FALLBACK - if Reddit proxies RedGifs as RedditVideo) ===
-        // p5 is fallbackUrl. If it contains "redgifs", fetch the real URL.
+        // === HOOK 2: RedditVideo constructor ===
+        // Calls our helper to process parameters. 
+        // Then we load the result from the helper's static fields.
         val redditVideoMethod = RedditVideoConstructorFingerprint.method
         redditVideoMethod.addInstructions(
             0,
             """
-                invoke-static {p5}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->fetchAudioUrl(Ljava/lang/String;)Ljava/lang/String;
-                move-result-object v0
+                invoke-static {p1, p3, p5, p8, p9}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->processRedditVideo(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
                 
-                if-eqz v0, :cond_skip_rv
-                
-                move-object p1, v0
-                move-object p3, v0
-                move-object p5, v0
-                move-object p8, v0
-                const/4 p9, 0x0
-                
-                :cond_skip_rv
+                sget-object p1, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP1:Ljava/lang/String;
+                sget-object p3, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP3:Ljava/lang/String;
+                sget-object p5, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP5:Ljava/lang/String;
+                sget-object p8, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP8:Ljava/lang/String;
+                sget-boolean p9, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP9:Z
             """.trimIndent()
         )
     }
