@@ -1,48 +1,43 @@
 package app.morphe.patches.reddit.misc.redgifsaudio
 
-import app.morphe.patcher.data.BytecodeContext
-import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
-import app.morphe.patcher.fingerprint.MethodFingerprint
-import app.morphe.patcher.patch.BytecodePatch
-import app.morphe.patcher.patch.annotation.CompatiblePackage
-import app.morphe.patcher.patch.annotation.Patch
+import app.morphe.patcher.Fingerprint
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.string
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
-@Patch(
+val redgifsAudioPatch = bytecodePatch(
     name = "RedGifs Audio Fix",
-    description = "Enables audio playback for RedGifs videos embedded in Reddit posts.",
-    compatiblePackages = [CompatiblePackage("com.reddit.frontpage")]
-)
-object RedGifsAudioPatch : BytecodePatch(
-    setOf(GqlMediaMapperFingerprint)
+    description = "Enables audio playback for RedGifs videos embedded in Reddit posts."
 ) {
-    override fun execute(context: BytecodeContext) {
-        GqlMediaMapperFingerprint.result?.let { result ->
-            val method = result.mutableMethod
-            val implementation = method.implementation!!
-            val instructions = implementation.instructions
+    compatibleWith("com.reddit.frontpage")
 
-            instructions.forEachIndexed { index, instruction ->
-                if (instruction.opcode == Opcode.CONST_4) {
-                    val oneReg = instruction as OneRegisterInstruction
-                    val next = instructions.getOrNull(index + 1)
-                    val nextStr = next?.toString() ?: ""
-                    if (nextStr.contains("hasAudio") || nextStr.contains("HAS_AUDIO")) {
-                        method.addInstructionsWithLabels(
-                            index,
-                            "const/4 v${oneReg.registerA}, 0x1"
-                        )
-                    }
+    execute {
+        val method = GqlMediaMapperFingerprint.method
+        val implementation = method.implementation ?: throw Exception("No implementation")
+        val instructions = implementation.instructions
+
+        instructions.forEachIndexed { index, instruction ->
+            if (instruction.opcode == Opcode.CONST_4) {
+                val oneReg = instruction as OneRegisterInstruction
+                val next = instructions.getOrNull(index + 1)
+                val nextStr = next?.toString() ?: ""
+                if (nextStr.contains("hasAudio") || nextStr.contains("HAS_AUDIO")) {
+                    method.addInstructions(
+                        index,
+                        "const/4 v${oneReg.registerA}, 0x1"
+                    )
                 }
             }
-        } ?: throw Exception("GqlMediaMapperFingerprint not found")
+        }
     }
 }
 
-object GqlMediaMapperFingerprint : MethodFingerprint(
-    strings = listOf("isGif", "hasAudio"),
-    customFingerprint = { methodDef, _ ->
-        methodDef.definingClass == "Lcom/reddit/data/model/graphql/GqlDataToMediaDomainModelMapperKt;"
-    }
+object GqlMediaMapperFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/data/model/graphql/GqlDataToMediaDomainModelMapperKt;",
+    filters = listOf(
+        string("isGif"),
+        string("hasAudio")
+    )
 )
