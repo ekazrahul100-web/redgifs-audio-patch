@@ -3,9 +3,9 @@ package app.morphe.patches.reddit.misc.redgifsaudio
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
-import com.android.tools.smali.dexlib2.Opcode
-import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
-import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import java.net.HttpURLConnection
+import java.net.URL
+import org.json.JSONObject
 
 @Suppress("unused")
 val redgifsAudioPatch = bytecodePatch(
@@ -15,61 +15,77 @@ val redgifsAudioPatch = bytecodePatch(
     compatibleWith("com.reddit.frontpage")
 
     execute {
-        val method = ToRedditVideoFingerprint.method
-        val instructions = method.implementation?.instructions ?: throw Exception("No implementation")
-
-        // Find the INVOKE_STATIC call to toRedditVideoMp4Urls and the
-        // subsequent NEW_INSTANCE of RedditVideo.
-        // We need to find where 'z' (hasAudio boolean, 9th arg) is loaded
-        // and force it to true (1) when the URL contains redgifs.com.
-        //
-        // Strategy: find the CONST_4 instruction that loads 'z' (hasAudio)
-        // immediately before the INVOKE_VIRTUAL on RedditVideo constructor,
-        // and insert a check: if str2 contains "redgifs", override z to 1.
-
-        // Find the invoke-direct for RedditVideo constructor
-        val constructorIndex = instructions.indexOfFirst { instruction ->
-            instruction.opcode == Opcode.INVOKE_DIRECT &&
-            instruction is ReferenceInstruction &&
-            instruction.reference.toString().contains("RedditVideo;-><init>")
-        }
-
-        if (constructorIndex == -1) throw Exception("RedditVideo constructor not found")
-
-        // The hasAudio boolean (z) is the 9th parameter (index 8, 0-based).
-        // Walk backwards from constructor to find the CONST_4 that loads z.
-        // z = te2Var.f — it's an iget-boolean into a register.
-        // Find IGET_BOOLEAN with field name 'f' on class te2
-        val hasAudioLoadIndex = (0 until constructorIndex).reversed().firstOrNull { idx ->
-            val instr = instructions[idx]
-            instr.opcode == Opcode.IGET_BOOLEAN &&
-            instr is ReferenceInstruction &&
-            instr.reference.toString().let { ref ->
-                ref.contains("->f:Z") || ref.endsWith(":Z")
-            }
-        } ?: throw Exception("hasAudio iget-boolean not found")
-
-        val hasAudioReg = (instructions[hasAudioLoadIndex] as OneRegisterInstruction).registerA
-
-        // After the iget-boolean that loads hasAudio, insert:
-        // check if str2 (register holding the video URL) contains "redgifs"
-        // if yes, set hasAudioReg to 1
-        // We need the register holding str2 (first param of RedditVideo constructor)
-        // str2 is loaded via iget or invoke before constructor — find it
-        // For now, insert a smali snippet after hasAudio load that forces true
-        // This is a broad fix: force hasAudio=true for ALL gif videos
-        // (Reddit only mutes redgifs in practice, not native gifs)
+        val method = RedditVideoConstructorFingerprint.method
+        
+        // Inject a call to our static fetchAudioUrl function right at the start of the constructor.
+        // p5 is fallbackUrl, p1 is packagedMp4Url, p3 is dashUrl, p8 is hlsUrl, p9 is isGif.
         method.addInstructions(
-            hasAudioLoadIndex + 1,
+            0,
             """
-                const/4 v${hasAudioReg}, 0x1
+                invoke-static {p5}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->fetchAudioUrl(Ljava/lang/String;)Ljava/lang/String;
+                move-result-object v0
+                
+                if-eqz v0, :cond_skip_redgifs
+                
+                move-object p1, v0
+                move-object p3, v0
+                move-object p5, v0
+                move-object p8, v0
+                const/4 p9, 0x0
+                
+                :cond_skip_redgifs
             """.trimIndent()
         )
     }
 }
 
-object ToRedditVideoFingerprint : Fingerprint(
-    definingClass = "Lcom/reddit/data/model/graphql/GqlDataToMediaDomainModelMapperKt;",
-    returnType = "Lcom/reddit/domain/model/RedditVideo;",
-    parameters = listOf("Lep1/js0;")
+object RedditVideoConstructorFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/RedditVideo;",
+    returnType = "V",
+    name = "<init>",
+    parameters = listOf(
+        "Ljava/lang/String;", 
+        "Lcom/reddit/domain/model/RedditVideoMp4Urls;", 
+        "Ljava/lang/String;", 
+        "I", 
+        "Ljava/lang/String;", 
+        "I", 
+        "I", 
+        "Ljava/lang/String;", 
+        "Z", 
+        "Ljava/lang/String;", 
+        "Ljava/lang/String;", 
+        "Ljava/lang/String;"
+    )
 )
+
+object RedGifsHelper {
+    @JvmStatic
+    fun fetchAudioUrl(fallbackUrl: String?): String? {
+        if (fallbackUrl == null || !fallbackUrl.contains("redgifs.com", ignoreCase = true)) {
+            return null
+        }
+        try {
+            val id = fallbackUrl.substringAfterLast("/").substringBefore(".mp4").substringBefore("-")
+            if (id.isEmpty() || id.contains("redgifs.com")) return null
+
+            val url = URL("https://api.redgifs.com/v2/gifs/${"$"}id")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connectTimeout = 3000
+            connection.readTimeout = 3000
+
+            if (connection.responseCode == 200) {
+                val response = connection.inputStream.bufferedReader().use { it.readText() }
+                val json = JSONObject(response)
+                val hdUrl = json.getJSONObject("gif").getJSONObject("urls").getString("hd")
+                if (hdUrl.isNotEmpty()) {
+                    return hdUrl
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+}
