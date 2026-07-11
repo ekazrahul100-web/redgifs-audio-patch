@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-11T20:02:53",
-  "description": "## [1.2.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.2...v1.2.3) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* use temp register to avoid destroying p2, add debug Toast logging ([6e44855](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/6e44855fcf637fe561c89864e4c4e66b8b9bb2b2))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.3/patches-1.2.3.mpp",
+  "created_at": "2026-07-11T20:21:58",
+  "description": "## [1.2.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.3...v1.2.4) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* entirely remove temp register dependency to prevent VerifyError crashes on app load ([91bf319](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/91bf319363133b8cd7d76a753de44c8d826149ff))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.4/patches-1.2.4.mpp",
   "signature_download_url": "",
-  "version": "1.2.3"
+  "version": "1.2.4"
 }

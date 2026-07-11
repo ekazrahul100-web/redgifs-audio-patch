@@ -1,3 +1,9 @@
+## [1.2.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.3...v1.2.4) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* entirely remove temp register dependency to prevent VerifyError crashes on app load ([91bf319](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/91bf319363133b8cd7d76a753de44c8d826149ff))
+
 ## [1.2.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.2...v1.2.3) (2026-07-11)
 
 ### 🐛 Bug Fixes
