@@ -10,6 +10,7 @@ val redgifsAudioPatch = bytecodePatch(
     name = "RedGifs Audio Fix",
     description = "Enables audio playback for RedGifs videos embedded in Reddit posts."
 ) {
+    extendWith("redgifs_extension.dex")
     compatibleWith("com.reddit.frontpage")
 
     execute {
