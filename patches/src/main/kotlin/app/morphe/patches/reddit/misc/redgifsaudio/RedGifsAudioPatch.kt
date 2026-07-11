@@ -1,35 +1,22 @@
 package app.morphe.patches.reddit.misc.redgifsaudio
 
-import app.morphe.patcher.data.BytecodeContext
-import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
-import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
-import app.morphe.patcher.extensions.InstructionExtensions.instructions
-import app.morphe.patcher.fingerprint.MethodFingerprint
-import app.morphe.patcher.patch.BytecodePatch
-import app.morphe.patcher.patch.annotation.CompatiblePackage
-import app.morphe.patcher.patch.annotation.Patch
+import app.morphe.patcher.Fingerprint
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.patch.bytecodePatch
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
-import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
-@Patch(
-    name = "RedGifs Audio Fix",
-    description = "Enables audio playback for RedGifs videos embedded in Reddit posts.",
-    compatiblePackages = [CompatiblePackage("com.reddit.frontpage")]
-)
 @Suppress("unused")
 val redgifsAudioPatch = bytecodePatch(
     name = "RedGifs Audio Fix",
-    description = "Enables audio playback for RedGifs videos embedded in Reddit posts.",
+    description = "Enables audio playback for RedGifs videos embedded in Reddit posts."
 ) {
     compatibleWith("com.reddit.frontpage")
 
-    val toRedditVideoMatch by toRedditVideoFingerprint()
-
     execute {
-        val method = toRedditVideoMatch.mutableMethod
-        val instructions = method.instructions
+        val method = ToRedditVideoFingerprint.method
+        val instructions = method.implementation?.instructions ?: throw Exception("No implementation")
 
         // Find the INVOKE_STATIC call to toRedditVideoMp4Urls and the
         // subsequent NEW_INSTANCE of RedditVideo.
@@ -44,8 +31,7 @@ val redgifsAudioPatch = bytecodePatch(
         val constructorIndex = instructions.indexOfFirst { instruction ->
             instruction.opcode == Opcode.INVOKE_DIRECT &&
             instruction is ReferenceInstruction &&
-            (instruction as ReferenceInstruction).reference.toString()
-                .contains("RedditVideo;-><init>")
+            instruction.reference.toString().contains("RedditVideo;-><init>")
         }
 
         if (constructorIndex == -1) throw Exception("RedditVideo constructor not found")
@@ -58,7 +44,7 @@ val redgifsAudioPatch = bytecodePatch(
             val instr = instructions[idx]
             instr.opcode == Opcode.IGET_BOOLEAN &&
             instr is ReferenceInstruction &&
-            (instr as ReferenceInstruction).reference.toString().let { ref ->
+            instr.reference.toString().let { ref ->
                 ref.contains("->f:Z") || ref.endsWith(":Z")
             }
         } ?: throw Exception("hasAudio iget-boolean not found")
@@ -73,7 +59,7 @@ val redgifsAudioPatch = bytecodePatch(
         // For now, insert a smali snippet after hasAudio load that forces true
         // This is a broad fix: force hasAudio=true for ALL gif videos
         // (Reddit only mutes redgifs in practice, not native gifs)
-        method.addInstructionsWithLabels(
+        method.addInstructions(
             hasAudioLoadIndex + 1,
             """
                 const/4 v${hasAudioReg}, 0x1
@@ -82,10 +68,8 @@ val redgifsAudioPatch = bytecodePatch(
     }
 }
 
-private val toRedditVideoFingerprint = fingerprint {
-    returns("Lcom/reddit/domain/model/RedditVideo;")
-    parameters("Lep1/js0;")
-    custom { methodDef, classDef ->
-        classDef.type == "Lcom/reddit/data/model/graphql/GqlDataToMediaDomainModelMapperKt;"
-    }
-}
+object ToRedditVideoFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/data/model/graphql/GqlDataToMediaDomainModelMapperKt;",
+    returnType = "Lcom/reddit/domain/model/RedditVideo;",
+    parameters = listOf("Lep1/js0;")
+)
