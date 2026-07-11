@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-11T19:04:57",
-  "description": "## [1.2.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.0...v1.2.1) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* aggressively force global UI checks to unmute videos ([4ad98e1](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/4ad98e12ca09f7d234448fe3f42f758cd88824d3))\n* resolve Kotlin compile error in patch DSL ([c83999e](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/c83999e13c2e02f46d041474c5a4ac49f21e7ad4))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.1/patches-1.2.1.mpp",
+  "created_at": "2026-07-11T19:27:36",
+  "description": "## [1.2.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.1...v1.2.2) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* hook VideoMedia constructor instead of RedditVideo to intercept RedGifs embeds ([41688de](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/41688de5c2ce23cc7d2f549e610f0969462f8b82))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.2/patches-1.2.2.mpp",
   "signature_download_url": "",
-  "version": "1.2.1"
+  "version": "1.2.2"
 }

@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.1...v1.2.2) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* hook VideoMedia constructor instead of RedditVideo to intercept RedGifs embeds ([41688de](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/41688de5c2ce23cc7d2f549e610f0969462f8b82))
+
 ## [1.2.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.0...v1.2.1) (2026-07-11)
 
 ### 🐛 Bug Fixes
