@@ -3,8 +3,7 @@ package app.morphe.patches.reddit.misc.redgifsaudio
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.bytecodePatch
-import java.net.HttpURLConnection
-import java.net.URL
+
 
 @Suppress("unused")
 val redgifsAudioPatch = bytecodePatch(
@@ -58,35 +57,3 @@ object RedditVideoConstructorFingerprint : Fingerprint(
     )
 )
 
-object RedGifsHelper {
-    @JvmStatic
-    fun fetchAudioUrl(fallbackUrl: String?): String? {
-        if (fallbackUrl == null || !fallbackUrl.contains("redgifs.com", ignoreCase = true)) {
-            return null
-        }
-        try {
-            val id = fallbackUrl.substringAfterLast("/").substringBefore(".mp4").substringBefore("-")
-            if (id.isEmpty() || id.contains("redgifs.com")) return null
-
-            val url = URL("https://api.redgifs.com/v2/gifs/${"$"}id")
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.connectTimeout = 3000
-            connection.readTimeout = 3000
-
-            if (connection.responseCode == 200) {
-                val response = connection.inputStream.bufferedReader().use { it.readText() }
-                val match = Regex("\"hd\"\\s*:\\s*\"([^\"]+)\"").find(response)
-                if (match != null) {
-                    val hdUrl = match.groupValues[1]
-                    if (hdUrl.isNotEmpty()) {
-                        return hdUrl
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
-    }
-}
