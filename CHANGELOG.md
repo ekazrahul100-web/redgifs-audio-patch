@@ -1,3 +1,9 @@
+## [1.2.5](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.4...v1.2.5) (2026-07-11)
+
+### 🐛 Bug Fixes
+
+* add toast debugging back to trace execution ([4d873c2](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/4d873c2a2e996482472bcefee7c2376f897d3353))
+
 ## [1.2.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.3...v1.2.4) (2026-07-11)
 
 ### 🐛 Bug Fixes
