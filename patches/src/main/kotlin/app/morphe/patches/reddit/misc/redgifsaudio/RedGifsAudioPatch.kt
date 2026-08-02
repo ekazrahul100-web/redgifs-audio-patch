@@ -35,7 +35,7 @@ val redgifsAudioPatch = bytecodePatch(
         linkMediaMethod.addInstructions(
             0,
             """
-                invoke-static {p1, p3}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->processLinkMedia(Ljava/lang/Object;Ljava/lang/Object;)V
+                invoke-static {p0, p1, p3}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->processLinkMedia(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V
             """.trimIndent()
         )
 
