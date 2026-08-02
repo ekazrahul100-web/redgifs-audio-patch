@@ -38,6 +38,29 @@ val redgifsAudioPatch = bytecodePatch(
                 invoke-static {p1, p3}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->processLinkMedia(Ljava/lang/Object;Ljava/lang/Object;)V
             """.trimIndent()
         )
+
+        // === HOOK 3: Global isGif overrides ===
+        // Reddit's player forcefully hides audio controls and auto-loops if a video is short or flagged as a GIF.
+        // By overriding the getters to always return false, we force Reddit to treat ALL videos
+        // (including short RedGifs and feed items) as normal videos with audio controls.
+        
+        val redditVideoIsGif = RedditVideoIsGifFingerprint.method
+        redditVideoIsGif.addInstructions(
+            0,
+            """
+                const/4 v0, 0x0
+                return v0
+            """.trimIndent()
+        )
+
+        val extraTagsIsGif = ExtraTagsIsGifFingerprint.method
+        extraTagsIsGif.addInstructions(
+            0,
+            """
+                const/4 v0, 0x0
+                return v0
+            """.trimIndent()
+        )
     }
 }
 
@@ -62,4 +85,18 @@ object LinkMediaConstructorFingerprint : Fingerprint(
         "Lcom/reddit/domain/model/StillMedia;",
         "Lcom/reddit/domain/model/VideoMedia;"
     )
+)
+
+object RedditVideoIsGifFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/RedditVideo;",
+    returnType = "Z",
+    name = "isGif",
+    parameters = emptyList()
+)
+
+object ExtraTagsIsGifFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/ExtraTags;",
+    returnType = "Z",
+    name = "isGifPost",
+    parameters = emptyList()
 )
