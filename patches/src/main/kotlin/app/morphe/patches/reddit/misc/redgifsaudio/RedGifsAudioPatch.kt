@@ -1,7 +1,9 @@
 package app.morphe.patches.reddit.misc.redgifsaudio
 
 import app.morphe.patcher.Fingerprint
+import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.removeInstruction
 import app.morphe.patcher.patch.bytecodePatch
 
 @Suppress("unused")
@@ -61,6 +63,30 @@ val redgifsAudioPatch = bytecodePatch(
                 return v0
             """.trimIndent()
         )
+
+        // === HOOK 4: AudioState.ABSENT -> AudioState.MUTED ===
+        // The feed mapper in com.reddit.feeds.impl.data.mapper.link.b hardcodes
+        // AudioState.ABSENT when building VideoElement objects for the feed.
+        // This tells the UI "no audio exists" and hides the speaker icon entirely.
+        // By patching the feed mapper method to use MUTED instead of ABSENT,
+        // the speaker icon appears and users can unmute to hear audio.
+        val feedMapperMethod = FeedVideoMapperFingerprint.method
+        val feedInstructions = feedMapperMethod.implementation!!.instructions
+        for (i in feedInstructions.indices) {
+            val inst = feedInstructions[i]
+            if (inst.opcode == com.android.tools.smali.dexlib2.Opcode.SGET_OBJECT) {
+                val ref = (inst as com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction).reference
+                if (ref.toString().contains("AudioState;->ABSENT")) {
+                    // Remove the ABSENT instruction and insert MUTED at the same index
+                    feedMapperMethod.removeInstruction(i)
+                    feedMapperMethod.addInstruction(
+                        i,
+                        "sget-object v26, Lcom/reddit/feeds/model/AudioState;->MUTED:Lcom/reddit/feeds/model/AudioState;"
+                    )
+                    break
+                }
+            }
+        }
     }
 }
 
@@ -99,4 +125,15 @@ object ExtraTagsIsGifFingerprint : Fingerprint(
     returnType = "Z",
     name = "isGifPost",
     parameters = emptyList()
+)
+
+object FeedVideoMapperFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/feeds/impl/data/mapper/link/b;",
+    returnType = "Lym1/q3;",
+    name = "n",
+    parameters = listOf(
+        "Lcom/reddit/domain/model/Link;",
+        "I",
+        "Z"
+    )
 )
