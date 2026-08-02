@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-02T17:56:12",
-  "description": "## [1.3.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.3...v1.3.4) (2026-08-02)\n\n### 🐛 Bug Fixes\n\n* actually undo redditVideo nullification to resolve crash ([c20c0ed](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/c20c0ed54f1c166ef8f634f686513e9311799a30))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.3.4/patches-1.3.4.mpp",
+  "created_at": "2026-08-02T18:07:14",
+  "description": "## [1.3.5](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.4...v1.3.5) (2026-08-02)\n\n### 🐛 Bug Fixes\n\n* restore working patch without crashing linkmedia ([32b939b](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/32b939b68d876158dd340d5d504b4f8e34daddef))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.3.5/patches-1.3.5.mpp",
   "signature_download_url": "",
-  "version": "1.3.4"
+  "version": "1.3.5"
 }

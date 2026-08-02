@@ -1,3 +1,9 @@
+## [1.3.5](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.4...v1.3.5) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* restore working patch without crashing linkmedia ([32b939b](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/32b939b68d876158dd340d5d504b4f8e34daddef))
+
 ## [1.3.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.3...v1.3.4) (2026-08-02)
 
 ### 🐛 Bug Fixes
