@@ -1,3 +1,9 @@
+## [1.3.12](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.11...v1.3.12) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* remove strict redditVideo null check and add token caching ([4fea2f1](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/4fea2f1f8b9ce6693dae6273ab45c46e7a509d58))
+
 ## [1.3.11](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.10...v1.3.11) (2026-08-02)
 
 ### 🐛 Bug Fixes
