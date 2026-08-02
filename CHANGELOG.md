@@ -1,3 +1,9 @@
+## [1.2.7](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.6...v1.2.7) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* switch to file-based debug logging for complete execution trace ([ab8e625](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/ab8e6255a93b8c34ce16d61eb786ff0059457d34))
+
 ## [1.2.6](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.5...v1.2.6) (2026-08-02)
 
 ### 🐛 Bug Fixes
