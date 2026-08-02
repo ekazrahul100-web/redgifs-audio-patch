@@ -3,6 +3,13 @@
 ### 🐛 Bug Fixes
 
 * safely intercept gb.a.v isGif check in feed mapper for redgifs urls ([e8e897c](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/e8e897c3c207c2ea5d3fcb6f0f149293bedf54ec))
+* trigger new release ([67023f1](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/67023f199c494c62efddb7342944c771b464d5a5))
+
+## [1.3.9](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.8...v1.3.9) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* safely intercept gb.a.v isGif check in feed mapper for redgifs urls ([e8e897c](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/e8e897c3c207c2ea5d3fcb6f0f149293bedf54ec))
 
 ## [1.3.8](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.7...v1.3.8) (2026-08-02)
 
