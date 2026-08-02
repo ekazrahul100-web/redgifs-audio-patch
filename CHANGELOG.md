@@ -1,3 +1,9 @@
+## [1.3.8](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.7...v1.3.8) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* patch AudioState.ABSENT to MUTED in feed mapper to show speaker icon for all videos ([9a76f43](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/9a76f4387ff82a3da20b3713e00e4aa11ec57234))
+
 ## [1.3.7](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.6...v1.3.7) (2026-08-02)
 
 ### 🐛 Bug Fixes
