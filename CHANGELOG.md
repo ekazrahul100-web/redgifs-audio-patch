@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.1...v1.3.2) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* global override for isGif and remove toasts ([6499ef3](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/6499ef3c4d2d28522223ea225fd44b5b70dfca7d))
+
 ## [1.3.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.0...v1.3.1) (2026-08-02)
 
 ### 🐛 Bug Fixes
