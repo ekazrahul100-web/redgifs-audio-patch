@@ -1,3 +1,9 @@
+## [1.3.6](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.5...v1.3.6) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* comprehensively patch all url fields including mp4Urls to prevent silent stream fallback for short videos ([dc9fad7](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/dc9fad7bdf18f1c2a574cd6b1afb2bd7ed81c654))
+
 ## [1.3.5](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.4...v1.3.5) (2026-08-02)
 
 ### 🐛 Bug Fixes
