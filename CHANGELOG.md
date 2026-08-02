@@ -1,3 +1,9 @@
+## [1.3.9](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.8...v1.3.9) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* override RedditVideo.getDuration to 10mins for redgifs to prevent duration-based is_gif flags ([aeb2358](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/aeb23582aa7b1645d652a1a2b807e79e54f3ab3f))
+
 ## [1.3.8](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.7...v1.3.8) (2026-08-02)
 
 ### 🐛 Bug Fixes

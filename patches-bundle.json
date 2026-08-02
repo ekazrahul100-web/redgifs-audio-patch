@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-02T20:06:24",
-  "description": "## [1.3.8](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.7...v1.3.8) (2026-08-02)\n\n### 🐛 Bug Fixes\n\n* patch AudioState.ABSENT to MUTED in feed mapper to show speaker icon for all videos ([9a76f43](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/9a76f4387ff82a3da20b3713e00e4aa11ec57234))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.3.8/patches-1.3.8.mpp",
+  "created_at": "2026-08-02T20:36:40",
+  "description": "## [1.3.9](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.8...v1.3.9) (2026-08-02)\n\n### 🐛 Bug Fixes\n\n* override RedditVideo.getDuration to 10mins for redgifs to prevent duration-based is_gif flags ([aeb2358](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/aeb23582aa7b1645d652a1a2b807e79e54f3ab3f))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.3.9/patches-1.3.9.mpp",
   "signature_download_url": "",
-  "version": "1.3.8"
+  "version": "1.3.9"
 }
