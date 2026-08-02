@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.8...v1.3.0) (2026-08-02)
+
+### ✨ New Features
+
+* hook LinkMedia to overwrite RedditVideo properties and enable native audio ([0f7b460](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/0f7b460c83962f9d4c3601932c60253e171ce242))
+
 ## [1.2.8](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.7...v1.2.8) (2026-08-02)
 
 ### 🐛 Bug Fixes
