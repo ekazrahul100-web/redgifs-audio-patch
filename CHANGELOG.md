@@ -1,3 +1,9 @@
+## [1.2.6](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.5...v1.2.6) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* include anonymous inner class in dex (was causing crash) ([8c7ce6e](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/8c7ce6ea514fe5b2519dc05b2e2a2994af93f54c))
+
 ## [1.2.5](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.4...v1.2.5) (2026-07-11)
 
 ### 🐛 Bug Fixes

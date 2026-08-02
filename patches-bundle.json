@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-07-11T20:51:09",
-  "description": "## [1.2.5](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.4...v1.2.5) (2026-07-11)\n\n### 🐛 Bug Fixes\n\n* add toast debugging back to trace execution ([4d873c2](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/4d873c2a2e996482472bcefee7c2376f897d3353))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.5/patches-1.2.5.mpp",
+  "created_at": "2026-08-02T14:04:28",
+  "description": "## [1.2.6](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.5...v1.2.6) (2026-08-02)\n\n### 🐛 Bug Fixes\n\n* include anonymous inner class in dex (was causing crash) ([8c7ce6e](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/8c7ce6ea514fe5b2519dc05b2e2a2994af93f54c))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.2.6/patches-1.2.6.mpp",
   "signature_download_url": "",
-  "version": "1.2.5"
+  "version": "1.2.6"
 }
