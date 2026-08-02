@@ -96,6 +96,39 @@ val redgifsAudioPatch = bytecodePatch(
                 }
             }
         }
+
+        // === HOOK 5: PostTypesKt overrides ===
+        // Reddit's logic in PostTypesKt sometimes classifies RedGifs as GIFs (returning PostType.GIF)
+        // because of the .gifv URL matching. This overrides that classification.
+        val getPostTypeMethod = PostTypesGetPostTypeFingerprint.method
+        if (getPostTypeMethod != null) {
+            getPostTypeMethod.addInstructions(
+                0,
+                """
+                    invoke-static {p0}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->isRedGifs(Ljava/lang/Object;)Z
+                    move-result v0
+                    if-eqz v0, :original
+                    sget-object v0, Lcom/reddit/domain/model/PostType;->VIDEO:Lcom/reddit/domain/model/PostType;
+                    return-object v0
+                    :original
+                """.trimIndent()
+            )
+        }
+
+        val isGifLinkTypeMethod = PostTypesIsGifLinkTypeFingerprint.method
+        if (isGifLinkTypeMethod != null) {
+            isGifLinkTypeMethod.addInstructions(
+                0,
+                """
+                    invoke-static {p0}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->isRedGifs(Ljava/lang/Object;)Z
+                    move-result v0
+                    if-eqz v0, :original
+                    const/4 v0, 0x0
+                    return v0
+                    :original
+                """.trimIndent()
+            )
+        }
     }
 }
 
@@ -145,4 +178,21 @@ object FeedVideoMapperFingerprint : Fingerprint(
         "I",
         "Z"
     )
+)
+
+object PostTypesGetPostTypeFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/listing/PostTypesKt;",
+    returnType = "Lcom/reddit/domain/model/PostType;",
+    name = "getPostType",
+    parameters = listOf(
+        "Lcom/reddit/domain/model/Link;",
+        "Z"
+    )
+)
+
+object PostTypesIsGifLinkTypeFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/listing/PostTypesKt;",
+    returnType = "Z",
+    name = "isGifLinkType",
+    parameters = listOf("Lcom/reddit/domain/model/Link;")
 )
