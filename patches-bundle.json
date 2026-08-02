@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-08-02T21:03:14",
-  "description": "## [1.3.9](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.8...v1.3.9) (2026-08-02)\n\n### 🐛 Bug Fixes\n\n* safely intercept gb.a.v isGif check in feed mapper for redgifs urls ([e8e897c](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/e8e897c3c207c2ea5d3fcb6f0f149293bedf54ec))\n* trigger new release ([67023f1](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/67023f199c494c62efddb7342944c771b464d5a5))",
-  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.3.9/patches-1.3.9.mpp",
+  "created_at": "2026-08-02T21:08:15",
+  "description": "## [1.3.10](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.9...v1.3.10) (2026-08-02)\n\n### 🐛 Bug Fixes\n\n* bump version to v1.3.10 to bypass morphe manager cache ([030425f](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/030425f976ab8b45749f8a2887e09f11b8777ff3))",
+  "download_url": "https://github.com/ekazrahul100-web/redgifs-audio-patch/releases/download/v1.3.10/patches-1.3.10.mpp",
   "signature_download_url": "",
-  "version": "1.3.9"
+  "version": "1.3.10"
 }

@@ -1,3 +1,9 @@
+## [1.3.10](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.9...v1.3.10) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* bump version to v1.3.10 to bypass morphe manager cache ([030425f](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/030425f976ab8b45749f8a2887e09f11b8777ff3))
+
 ## [1.3.9](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.8...v1.3.9) (2026-08-02)
 
 ### 🐛 Bug Fixes
