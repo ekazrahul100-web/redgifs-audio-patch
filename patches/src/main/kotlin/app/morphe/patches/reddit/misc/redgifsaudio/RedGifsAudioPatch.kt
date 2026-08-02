@@ -14,9 +14,7 @@ val redgifsAudioPatch = bytecodePatch(
 
     execute {
         // === HOOK 1: VideoMedia constructor ===
-        // Calls our helper to process p1 and p2. 
-        // Then we load the result from the helper's static fields.
-        // This requires ZERO local registers (v0, etc) and is 100% verifier-safe.
+        // Still needed if Reddit falls back to WebView player (unlikely for main feed)
         val videoMediaMethod = VideoMediaConstructorFingerprint.method
         videoMediaMethod.addInstructions(
             0,
@@ -28,20 +26,16 @@ val redgifsAudioPatch = bytecodePatch(
             """.trimIndent()
         )
 
-        // === HOOK 2: RedditVideo constructor ===
-        // Calls our helper to process parameters. 
-        // Then we load the result from the helper's static fields.
-        val redditVideoMethod = RedditVideoConstructorFingerprint.method
-        redditVideoMethod.addInstructions(
+        // === HOOK 2: LinkMedia constructor ===
+        // Passes the native RedditVideo object (p1) and the original VideoMedia object (p3).
+        // Our Java helper will use reflection to grab the original RedGifs URL from VideoMedia,
+        // fetch the HD video, and overwrite the native RedditVideo object with the HD URL
+        // AND set isGif=false so the native speaker icon appears!
+        val linkMediaMethod = LinkMediaConstructorFingerprint.method
+        linkMediaMethod.addInstructions(
             0,
             """
-                invoke-static {p1, p3, p5, p8, p9}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->processRedditVideo(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
-                
-                sget-object p1, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP1:Ljava/lang/String;
-                sget-object p3, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP3:Ljava/lang/String;
-                sget-object p5, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP5:Ljava/lang/String;
-                sget-object p8, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP8:Ljava/lang/String;
-                sget-boolean p9, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->rvP9:Z
+                invoke-static {p1, p3}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->processLinkMedia(Ljava/lang/Object;Ljava/lang/Object;)V
             """.trimIndent()
         )
     }
@@ -59,22 +53,13 @@ object VideoMediaConstructorFingerprint : Fingerprint(
     )
 )
 
-object RedditVideoConstructorFingerprint : Fingerprint(
-    definingClass = "Lcom/reddit/domain/model/RedditVideo;",
+object LinkMediaConstructorFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/LinkMedia;",
     returnType = "V",
     name = "<init>",
     parameters = listOf(
-        "Ljava/lang/String;", 
-        "Lcom/reddit/domain/model/RedditVideoMp4Urls;", 
-        "Ljava/lang/String;", 
-        "I", 
-        "Ljava/lang/String;", 
-        "I", 
-        "I", 
-        "Ljava/lang/String;", 
-        "Z", 
-        "Ljava/lang/String;", 
-        "Ljava/lang/String;", 
-        "Ljava/lang/String;"
+        "Lcom/reddit/domain/model/RedditVideo;",
+        "Lcom/reddit/domain/model/StillMedia;",
+        "Lcom/reddit/domain/model/VideoMedia;"
     )
 )
