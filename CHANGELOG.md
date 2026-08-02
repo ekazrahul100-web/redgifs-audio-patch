@@ -1,3 +1,9 @@
+## [1.3.7](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.6...v1.3.7) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* nullify mp4Urls and packagedMp4Url to prevent lightweight gif player fallback ([2c24d81](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/2c24d818cd6af2f3f22e9d729e79912612db61de))
+
 ## [1.3.6](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.5...v1.3.6) (2026-08-02)
 
 ### 🐛 Bug Fixes
