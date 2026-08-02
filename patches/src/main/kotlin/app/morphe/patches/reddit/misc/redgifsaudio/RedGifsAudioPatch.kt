@@ -87,6 +87,21 @@ val redgifsAudioPatch = bytecodePatch(
                 }
             }
         }
+
+        // === HOOK 5: Override getDuration() for RedGifs ===
+        // Reddit's logic sets is_gif = true dynamically if duration < 60s.
+        // We force duration to 600000 (10 mins) for RedGifs so the player always treats it as a standard video.
+        val getDurationMethod = RedditVideoGetDurationFingerprint.method
+        getDurationMethod.addInstructions(
+            0,
+            """
+                invoke-static {p0}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->getRedGifsDuration(Ljava/lang/Object;)I
+                move-result v0
+                if-lez v0, :original
+                return v0
+                :original
+            """.trimIndent()
+        )
     }
 }
 
@@ -136,4 +151,11 @@ object FeedVideoMapperFingerprint : Fingerprint(
         "I",
         "Z"
     )
+)
+
+object RedditVideoGetDurationFingerprint : Fingerprint(
+    definingClass = "Lcom/reddit/domain/model/RedditVideo;",
+    returnType = "I",
+    name = "getDuration",
+    parameters = emptyList()
 )
