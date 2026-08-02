@@ -1,3 +1,9 @@
+## [1.2.8](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.7...v1.2.8) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* smart Toast diagnostics - only show for RedGifs URLs with step-by-step trace ([d91927a](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/d91927a3a0c87c4b1287ede3ce007561fb9fcef3))
+
 ## [1.2.7](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.6...v1.2.7) (2026-08-02)
 
 ### 🐛 Bug Fixes
