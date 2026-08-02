@@ -83,7 +83,16 @@ val redgifsAudioPatch = bytecodePatch(
                         i,
                         "sget-object v26, Lcom/reddit/feeds/model/AudioState;->MUTED:Lcom/reddit/feeds/model/AudioState;"
                     )
-                    break
+                }
+            } else if (inst.opcode == com.android.tools.smali.dexlib2.Opcode.INVOKE_STATIC) {
+                val ref = (inst as com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction).reference
+                if (ref.toString().contains("Lgb/a;->v(Lcom/reddit/domain/model/Link;)Z")) {
+                    // Intercept the native isGif check and pass it to our custom helper
+                    feedMapperMethod.removeInstruction(i)
+                    feedMapperMethod.addInstruction(
+                        i,
+                        "invoke-static {v0}, Lapp/morphe/patches/reddit/misc/redgifsaudio/RedGifsHelper;->isGif(Ljava/lang/Object;)Z"
+                    )
                 }
             }
         }
