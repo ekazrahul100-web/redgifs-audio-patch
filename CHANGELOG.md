@@ -1,3 +1,9 @@
+## [1.3.11](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.10...v1.3.11) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* override PostTypesKt to prevent RedGifs from mapping to GifElement ([83d53ec](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/83d53ec75ca5d7ca5da1d1a46a71367182340bc3))
+
 ## [1.3.10](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.9...v1.3.10) (2026-08-02)
 
 ### 🐛 Bug Fixes
