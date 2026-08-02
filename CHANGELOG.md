@@ -1,3 +1,9 @@
+## [1.3.4](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.3...v1.3.4) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* actually undo redditVideo nullification to resolve crash ([c20c0ed](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/c20c0ed54f1c166ef8f634f686513e9311799a30))
+
 ## [1.3.3](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.2...v1.3.3) (2026-08-02)
 
 ### 🐛 Bug Fixes
