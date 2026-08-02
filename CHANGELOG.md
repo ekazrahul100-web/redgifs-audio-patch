@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.3.0...v1.3.1) (2026-08-02)
+
+### 🐛 Bug Fixes
+
+* force duration to 600000ms for short redgifs ([22c8a53](https://github.com/ekazrahul100-web/redgifs-audio-patch/commit/22c8a531fec825b0a430d44b8b16b5175fef6529))
+
 ## [1.3.0](https://github.com/ekazrahul100-web/redgifs-audio-patch/compare/v1.2.8...v1.3.0) (2026-08-02)
 
 ### ✨ New Features
